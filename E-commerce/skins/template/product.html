@@ -1,0 +1,242 @@
+<html lang="zxx">
+   <body>
+      <!-- Page Preloder -->
+      <div id="preloder" style="display: none">
+         <div class="loader" style="display: none"></div>
+      </div>
+
+      <!-- Product Shop Section Begin -->
+      <section class="product-shop spad page-details">
+         <div class="container">
+            <div class="row">
+               <div class="row">
+                  <div class="col-lg-6">
+                     <div class="product-pic-zoom">
+                        <img
+                           class="product-big-img"
+                           src="<[FOTO_PRINCIPALE_PRODOTTO]>"
+                           alt="main img"
+                        />
+                        <img
+                           role="presentation"
+                           alt=""
+                           src="<[FOTO_PRINCIPALE_PRODOTTO]>"
+                           class="zoomImg"
+                           style="position: absolute; opacity: 0; width: 440px; height: 520px"
+                        />
+                     </div>
+                     <div class="product-thumbs">
+                        <div class="product-thumbs-track ps-slider owl-carousel owl-loaded owl-drag">
+                           <div class="owl-stage-outer">
+                              <div class="owl-stage">
+                                 
+                                 <[foreach]> <[RULLINO_FOTO]> <[/foreach]>
+                              </div>
+                           </div>
+                           <div class="owl-nav">
+                              <button type="button" role="presentation" class="owl-prev">
+                                 <i class="fa fa-angle-left"></i></button
+                              ><button type="button" role="presentation" class="owl-next disabled">
+                                 <i class="fa fa-angle-right"></i>
+                              </button>
+                           </div>
+                           <div class="owl-dots disabled"></div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-lg-6">
+                     <div class="product-details">
+                        <div class="pd-title">
+                           <h3><[NOME_PRODOTTO]></h3>
+                        </div>
+                        <div class="pd-desc">
+                           <p>
+                              <[DESCRIZIONE_PRODOTTO]>
+                           </p>
+                           <h4><[PREZZO_PRODOTTO]>€<span><[PREZZO_PRODOTTO_PRECEDENTE]></span></h4>
+                        </div>
+                        <div class="pd-size-choose">
+                           <div class="sc-item">
+                              <input type="radio" id="sm-size" />
+                              <label for="sm-size" onclick="selectTaglia('S')">s</label>
+                           </div>
+                           <div class="sc-item">
+                              <input type="radio" id="md-size" />
+                              <label for="md-size" onclick="selectTaglia('M')">m</label>
+                           </div>
+                           <div class="sc-item" >
+                              <input type="radio" id="lg-size" />
+                              <label for="lg-size" onclick="selectTaglia('L')">l</label>
+                           </div>
+                           <div class="sc-item">
+                              <input type="radio" id="xl-size" />
+                              <label for="xl-size" onclick="selectTaglia('XL')">xl</label>
+                           </div>
+                           <div id="taglia_disponibilita_prodotto" class="sc-item"><h6 class="pd-tags" style="margin-left: 20px">disponibili: (<span class="Q_value">seleziona taglia</span>)</h6></div>
+                        </div>
+                        <div class="quantity">
+                           <div class="pro-qty">
+                              <span class="dec qtybtn">-</span>
+                              <input type="text" value="1" max="<[TAGLIA_DISPONIBILITA_PRODOTTO]>" disabled/>
+                              <span class="inc qtybtn">+</span>
+                           </div>
+
+                           <button class="lallero" onclick="addToCart()">aggiungi a carrello</button>
+                        </div>
+                        <ul class="pd-tags">
+                           <li><span>CATEGORIA</span>: <[CATEGORIA_PRODOTTO]></li>
+                        </ul>
+                        <ul class="pd-tags">
+                           <li><span>MARCA</span>: <[MARCA_PRODOTTO]></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="product-tab">
+                  <div class="tab-item">
+                     <ul class="nav" role="tablist">
+                        <li>
+                           <a class="" data-toggle="tab" href="#tab-1" role="tab" aria-selected="false">descrizione</a>
+                        </li>
+                        <li>
+                           <a data-toggle="tab" href="#tab-2" role="tab">specifiche</a>
+                        </li>
+                        <li>
+                           <a data-toggle="tab" href="#tab-3" role="tab" class="active" aria-selected="true"
+                              >recensioni (<[N_RECENSIONI_PRODOTTO]>)</a
+                           >
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="tab-item-content">
+                     <div class="tab-content">
+                        <div class="tab-pane fade-in" id="tab-1" role="tabpanel">
+                           <div class="product-content">
+                              <div class="row">
+                                 <div class="col-lg-7">
+                                    <h5>Descrizione prodotto:</h5>
+                                    <p><[DESCRIZIONE_PRODOTTO]></p>
+                                 </div>
+                                 <div class="col-lg-5"></div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                           <div class="specification-table">
+                              <table>
+                                 <tbody>
+                                    <tr>
+                                       <td class="p-catagory">Valutazione</td>
+                                       <td><[VALUTAZIONE_PRODOTTO]> ⭐</td>
+                                    </tr>
+                                    <tr>
+                                       <td class="p-catagory">Prezzo</td>
+                                       <td>
+                                          <div class="p-price"><[PREZZO_PRODOTTO]>€</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="p-catagory">disponibilità</td>
+                                       <td>
+                                          <div class="p-stock"><[TOT_DISPONIBILITA_PRODOTTO]> in magazzino</div>
+                                       </td>
+                                    </tr>
+                                    <tr>
+                                       <td class="p-catagory">n° ordinati</td>
+                                       <td>
+                                          <div class="p-size"><[N_ORDINAZIONI]></div>
+                                       </td>
+                                    </tr>
+                                       <td class="p-catagory">CODICE</td>
+                                       <td>
+                                          <div class="p-code">#<[ID_PRODOTTO]></div>
+                                       </td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                        <div class="tab-pane fade active show" id="tab-3" role="tabpanel">
+                           <div class="customer-review-option">
+                              <h4><[N_RECENSIONI_PRODOTTO]> Recensioni</h4>
+                              <div class="comment-option">
+                                 <[foreach]><[RECENSIONI_UTENTI]><[/foreach]>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Product Shop Section End -->
+   </body>
+</html>
+
+<script>
+   let TAGLIA_SEL;
+
+   function addToCart() {
+      let quantita = document.querySelector(".pro-qty input").value;
+      let id_prodotto = "<[ID_PRODOTTO]>";
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "include/php-utils/add_to_cart.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+         if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+            // Gestisci la risposta qui
+         }
+      };
+      xhr.send("id_prodotto=" + encodeURIComponent(id_prodotto) + 
+               "&quantita=" + encodeURIComponent(quantita) + 
+               "&taglia=" + encodeURIComponent(TAGLIA_SEL));
+      window.location.href = window.location.href;
+   }
+
+   function selectTaglia(taglia) {
+      let id_prodotto = "<[ID_PRODOTTO]>";
+      TAGLIA_SEL = taglia;
+
+      $.ajax({
+      url: "include/php-utils/select_taglia_product.php",
+      type: "POST",
+      data: { valore: taglia, valore2: id_prodotto },
+      success: function (response) {
+         $(document).ready(function () {
+           $("#taglia_disponibilita_prodotto").html(response);
+           console.log("questa è la risposta:", response);
+           disableAddToCart();
+           setLimitQuantity();
+         });
+      },
+      error: function (xhr, status, error) {
+         console.log("Si è verificato un errore durante l'invio della richiesta.");
+      },
+   });
+   }
+
+   function disableAddToCart() {
+      let n_disp = document.querySelector('.Q_value').textContent;
+      console.log(n_disp);
+      let addToCartBtn = document.querySelector(".lallero");
+      if (n_disp == 0 || n_disp == 'seleziona taglia') {
+         addToCartBtn.disabled = true;
+      } else {
+         addToCartBtn.disabled = false;
+      }
+   }
+   disableAddToCart();
+
+   function setLimitQuantity() {
+      let qValueSpan = document.querySelector('.Q_value');
+      let qValue = qValueSpan.textContent;
+      let qtyInput = document.querySelector('input[type="text"]');
+      qtyInput.setAttribute('max', qValue);
+   }
+</script>
+
+
+

@@ -1,0 +1,58 @@
+<html lang="it">
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder" style="display: none">
+        <div class="loader" style="display: none"></div>
+    </div>
+
+    <div class="container" style="margin-bottom: 150px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="x100xauto banner_part rounded text-center padding_bottom_25 d-flex align-items-center justify-content-center">
+                    <div class="blog-detail-title">
+                        <h2 style="margin-top: 30px; margin-bottom: 30px">I tuoi Ordini</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            <div class="table-responsive" style="border-color: black;">
+                <table class="table table-responsive-lg table-hover" id="order-table">
+                    <thead style="background-color: #ffb72987;">
+                        <tr>
+                            <th>CODICE</th>
+                            <th>DATA ACQUISTO</th>
+                            <th>TOTALE</th>
+                            <th>STATO</th>
+                            <th>INDIRIZZO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <[foreach]> <[ELEMENTO_ORDINE]> <[/foreach]>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    </div>
+   
+
+</body>
+
+</html>
+
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    $('.item-block').css('cursor', 'pointer');
+
+    $().ready(function () {
+        $('#order-table').on('click', 'tbody > tr', function (event) {
+            let ID = $(this).find('#item-code').text();
+            window.location.href = 'dettagli-ordine.php?id_ordine=' + ID;
+        });
+    });
+</script>

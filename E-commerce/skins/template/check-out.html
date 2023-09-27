@@ -1,0 +1,255 @@
+<html lang="zxx">
+   <body>
+      <!-- Page Preloder -->
+      <div id="preloder" style="display: none">
+         <div class="loader" style="display: none"></div>
+      </div>
+
+      <!-- Breadcrumb Section Begin -->
+
+      <!-- Shopping Cart Section Begin -->
+      <section class="checkout-section spad">
+         <div class="container">
+            <div class="checkout-form" id="tot-form-checkout">
+               <div class="row">
+                  <div class="col-lg-6">
+                     <h4>Seleziona il tuo indirizzo:</h4>
+                     <form class="row d-flex justify-content-center align-items-center h-100">
+                        <div class="col-md-12 form-group p_star">
+                           <div class="discount-coupon">
+                              <h6 for="regione">
+                                 i tuoi indirizzi<span style="position: absolute; right: 0; margin-right: 25px"
+                                    ><a href="add-indirizzo.php">Aggiungi Indirizzo</a></span
+                                 >
+                              </h6>
+
+                              <select class="form-control" id="indirizzo_scelto" onchange="selectIndirizzo()" required>
+                                 <option value="seleziona">Seleziona</option>
+                                 <[foreach]> <[I_MIEI_INDIRIZZI]> <[/foreach]>
+                              </select>
+
+                              <h6 for="regione" style="margin-top: 20%">Scegli la spedizione</h6>
+                              <!-- scelta del corriere -->
+                              <!-- ci va messa una tabella, da creare completamente -->
+                              <div style="border-color: black">
+                                 <table class="table table-responsive-lg table-hover" id="tabella-corrieri">
+                                    <thead style="background-color: #ffb72987">
+                                       <tr>
+                                          <th>SELECT</th>
+                                          <th>PREZZO</th>
+                                          <th>AZIENDA</th>
+                                          <th>CONSEGNA</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <[foreach]> <[ELEMENTO_CORRIERE]> <[/foreach]>
+                                    </tbody>
+                                 </table>
+                              </div>
+
+                              <div style="border-color: black">
+                                 <table class="table table-responsive-lg table-hover" id="tabella-pagamento">
+                                    <thead style="background-color: #ffb72987">
+                                       <tr>
+                                          <th>SELECT</th>
+                                          <th>TIPOLOGIA PAGAMENTO</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <[foreach]> <[ELEMENTO_METODO_PAGAMENTO]> <[/foreach]>
+                                    </tbody>
+                                 </table>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                  </div>
+                  <!--  -->
+                  <div class="col-lg-6">
+                     <div class="place-order">
+                        <h4>Il tuo ordine</h4>
+                        <div class="order-total">
+                           <ul class="order-table">
+                              <li>Prodotti<span>Totale</span></li>
+                              <[foreach]> <[PRODOTTO_CART]> <[/foreach]>
+                              <li class="fw-normal">Subtotal <span> <[SUBTOTAL]> € </span></li>
+                              <li class="total-price">Totale<span> <[SUBTOTAL]> € </span></li>
+                           </ul>
+                           <div class="payment-check"></div>
+                           <div class="order-btn">
+                              <div class="discount-coupon">
+                                 <h6>Codice sconto</h6>
+                                 <div id="form-checkout" class="coupon-form">
+                                    <input
+                                       style="color: #4e4e4e"
+                                       type="text"
+                                       id="coupon"
+                                       name="coupon"
+                                       placeholder="Hai un codice promo?"
+                                       required
+                                    />
+                                    <button id="applica-button" class="site-btn coupon-btn" onclick="ApplicaCoupon()">
+                                       applica
+                                    </button>
+                                 </div>
+                              </div>
+                              <button onclick="Conferma()" class="site-btn proceed-btn" id="conferma-btn">
+                                 Conferma ordine
+                              </button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Shopping Cart Section End -->
+   </body>
+</html>
+
+<!-- calcolare il prezzo totale finale -->
+<!-- se viene attivato un coupon il prezzo cambia -->
+
+<script>
+   let idCorriere = 0;
+   let idPagamento = 0;
+   let idIndirizzo = 0;
+   let idCoupon = 0;
+   let totaleCarrello = 0;
+
+   // corriere
+   function selectCorriere(row, id_corriere, costo) {
+      var selectedRows = document.getElementsByName("selectedCorriere");
+      for (var i = 0; i < selectedRows.length; i++) {
+         selectedRows[i].checked = false;
+      }
+      row.querySelector("input[type='radio']").checked = true;
+      idCorriere = id_corriere;
+
+      let nuovoPrezzo = totaleCarrello + parseFloat(costo);
+      var price = document.querySelector(".total-price");
+      var priceElement = price.querySelector("span");
+      var newPrice = nuovoPrezzo + " €";
+      priceElement.textContent = newPrice;
+   }
+
+   // pagamento
+   function selectPagamento(row, id_pagamento) {
+      var selectedRows = document.getElementsByName("selectedPagamento");
+      for (var i = 0; i < selectedRows.length; i++) {
+         selectedRows[i].checked = false;
+      }
+      row.querySelector("input[type='radio']").checked = true;
+      idPagamento = id_pagamento;
+   }
+
+   // indirizzo
+   function selectIndirizzo() {
+      var selectElement = document.getElementById("indirizzo_scelto");
+      var selectedValue = selectElement.value;
+      idIndirizzo = selectedValue;
+   }
+
+   // coupon
+   function ApplicaCoupon() {
+      var inputCoupon = document.getElementById("coupon");
+      var valoreCoupon = inputCoupon.value.toUpperCase();
+
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "include/php-utils/check_coupon.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function () {
+         if (xhr.readyState === 4 && xhr.status === 200) {
+            // gestisci la risposta
+            var response = xhr.responseText;
+            response = response.replace("<script> console.log('Connessione riuscita') <\\/script>", "");
+            var responseObject = JSON.parse(response);
+
+            if (responseObject.success) {
+               idCoupon = parseInt(responseObject.dati.id_coupon);
+               let sconto = parseInt(responseObject.dati.sconto_percentuale);
+
+               var totalElement = document.querySelector("li.total-price");
+               var totalText = totalElement.textContent;
+               var totalValue = totalText.replace("Totale", "").replace("€", "").trim();
+               let nuovoPrezzo = parseInt(totalValue) - (sconto * parseInt(totalValue)) / 100;
+               var price = document.querySelector(".total-price");
+               var priceElement = price.querySelector("span");
+               var newPrice = nuovoPrezzo + " €";
+               priceElement.textContent = newPrice;
+
+               var formCheckout = document.getElementById("form-checkout");
+               var formElements = formCheckout.getElementsByTagName("*");
+               for (var i = 0; i < formElements.length; i++) {
+                  formElements[i].setAttribute("disabled", "disabled");
+               }
+               var inputCoupon = document.getElementById("coupon");
+               inputCoupon.style.color = "green";
+               var applicaButton = document.getElementById("applica-button");
+            } else {
+               var inputCoupon = document.getElementById("coupon");
+               inputCoupon.value = "";
+            }
+
+            alert(responseObject.messaggio);
+         }
+      };
+      xhr.send("coupon=" + encodeURIComponent(valoreCoupon));
+   }
+
+   // conferma checkout
+   function Conferma() {
+      if (idCorriere == 0 || idPagamento == 0 || idIndirizzo == 0) {
+         alert("Seleziona tutti i campi !");
+      } else {
+         var totalElement = document.querySelector("li.total-price");
+         var totalText = totalElement.textContent;
+         var totalValue = totalText.replace("Totale", "").replace("€", "").trim();
+
+         let xhr = new XMLHttpRequest();
+         xhr.open("POST", "include/php-utils/conferma_checkout.php", true);
+         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+         xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+               console.log(xhr.responseText);
+               // Gestisci la risposta qui
+            }
+         };
+         xhr.send(
+            "address=" +
+               encodeURIComponent(idIndirizzo) +
+               "&corriere=" +
+               encodeURIComponent(idCorriere) +
+               "&pagamento=" +
+               encodeURIComponent(idPagamento) +
+               "&totale=" +
+               encodeURIComponent(totalValue) +
+               "&coupon=" +
+               encodeURIComponent(idCoupon)
+         );
+         window.location.href = "orders.php";
+      }
+   }
+
+   // disabilita bottone
+   document.addEventListener("DOMContentLoaded", function () {
+      var confermaBtn = document.getElementById("conferma-btn");
+      var totalElement = document.querySelector("li.total-price");
+      var totalText = totalElement.textContent;
+      var totalValue = totalText.replace("Totale", "").replace("€", "").trim();
+
+      if (totalValue == 0) {
+         confermaBtn.disabled = true;
+      }
+   });
+
+   // memorizza il totale del carrello
+   function SalvaTotaleCarrello() {
+      var totalElement = document.querySelector("li.total-price");
+      var totalText = totalElement.textContent;
+      var totalValue = totalText.replace("Totale", "").replace("€", "").trim();
+      totaleCarrello = parseFloat(totalValue);
+   }
+   SalvaTotaleCarrello();
+</script>

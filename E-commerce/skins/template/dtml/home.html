@@ -1,0 +1,168 @@
+<!-- Banner Section Begin -->
+<div class="banner-section spad">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-lg-4">
+            <div class="single-banner">
+               <img src="skins/template/img/banner-1.jpg" alt="" />
+               <div class="inner-text" id="filterUomoShop">
+                  <h4>Uomo</h4>
+               </div>
+            </div>
+         </div>
+
+         <div class="col-lg-4">
+            <div class="single-banner">
+               <img src="skins/template/img/banner-2.jpg" alt="" />
+               <div class="inner-text" id="filterDonnaShop">
+                  <h4>Donna</h4>
+               </div>
+            </div>
+         </div>
+         <div class="col-lg-4">
+            <div class="single-banner">
+               <img src="skins/template/img/banner-3.jpg" alt="" />
+               <div class="inner-text" id="filterBambiniShop">
+                  <h4>Bambini</h4>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Banner Section End -->
+
+<!-- Deal Of The Week Section Begin-->
+<section class="promozione">
+   <div
+      class="deal-of-week set-bg spad"
+      data-setbg="skins/template/img/<[SET_IMG]>"
+      style="
+         background-image: url('skins/template/img/<[SET_IMG]>');
+         height: 410px;
+         width: 300px;
+         position: absolute;
+         left: 50%;
+         top: 70%;
+      "
+   ></div>
+   <div class="container">
+      <div class="col-lg-6 text-center">
+         <div class="section-title">
+            <h2>Promozione - <[NOME_PROMOZIONE]></h2>
+            <p><[DESCRIZIONE_PROMOZIONE]></p>
+            <div class="product-price"><[SCONTO_PERCENTUALE]>% <span> su <[CATEGORIA_PROMOZIONE]></span></div>
+         </div>
+         <h4>Affrettati! l'offerta scade il</h4>
+         <br />
+         <div class="countdown-timer" id="countdown">
+            <div class="cd-item">
+               <span><[GG]></span>
+               <p>Giorno</p>
+            </div>
+            <div class="cd-item">
+               <span><[MM]></span>
+               <p>Mese</p>
+            </div>
+            <div class="cd-item">
+               <span><[AAAA]></span>
+               <p>Anno</p>
+            </div>
+         </div>
+         <a href="shop.php" class="primary-btn">Acquista ora</a>
+      </div>
+   </div>
+</section>
+<!-- Deal Of The Week Section End -->
+
+<!-- Latest Message Section Begin -->
+<section class="latest-blog spad">
+   <div class="container">
+      <div class="row">
+         <div class="col-lg-12">
+            <div class="section-title">
+               <h2>Ultime recensioni dei clienti</h2>
+            </div>
+         </div>
+      </div>
+      <div class="row"><[foreach]> <[FEEDBACK]> <[/foreach]></div>
+      <div class="benefit-items">
+         <div class="row">
+            <div class="col-lg-4">
+               <div class="single-benefit">
+                  <div class="sb-icon">
+                     <img src="skins/template/img/icon-1.png" alt="" />
+                  </div>
+                  <div class="sb-text">
+                     <h6>Consegna gratuita</h6>
+                     <p>Per ordini superiori a 99€</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-4">
+               <div class="single-benefit">
+                  <div class="sb-icon">
+                     <img src="skins/template/img/icon-2.png" alt="" />
+                  </div>
+                  <div class="sb-text">
+                     <h6>Consegne puntuali</h6>
+                     <p>Altrimenti segnala</p>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-4">
+               <div class="single-benefit">
+                  <div class="sb-icon">
+                     <img src="skins/template/img/icon-1.png" alt="" />
+                  </div>
+                  <div class="sb-text">
+                     <h6>Pagamenti sicuri</h6>
+                     <p>100% pagamenti sicuri</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<script src="skins/template/js/jquery-3.3.1.min.js"></script>
+<script src="skins/template/js/bootstrap.min.js"></script>
+<script src="skins/template/js/jquery-ui.min.js"></script>
+<script src="skins/template/js/jquery.countdown.min.js"></script>
+<script src="skins/template/js/jquery.nice-select.min.js"></script>
+<script src="skins/template/js/jquery.zoom.min.js"></script>
+<script src="skins/template/js/jquery.dd.min.js"></script>
+<script src="skins/template/js/jquery.slicknav.js"></script>
+<script src="skins/template/js/owl.carousel.min.js"></script>
+<script src="skins/template/js/main.js"></script>
+<script src="skins/template/js/filtriAjax.js"></script>
+<script src="skins/template/js/changeAdminCenterAjax.js"></script>
+<script src="skins/template/js/gotoShopAjax.js"></script>
+<script>
+   $(document).ready(function () {
+      $("#filterUomoShop").on("click", function () {
+         gotoShop("uomo");
+      });
+   });
+   $(document).ready(function () {
+      $("#filterDonnaShop").on("click", function () {
+         gotoShop("donna");
+      });
+   });
+   $(document).ready(function () {
+      $("#filterBambiniShop").on("click", function () {
+         gotoShop("bambino");
+      });
+   });
+
+   function updateContactFormVisibility() {
+      var contactForm = document.querySelector(".promozione");
+      var nomePromozione = document.querySelector(".promozione h2").innerHTML;
+      if (nomePromozione == "Promozione - ") {
+         contactForm.style.display = "none"; // Nascondi il div
+      } else {
+         contactForm.style.display = "block"; // Mostra il div
+      }
+   }
+   updateContactFormVisibility();
+</script>

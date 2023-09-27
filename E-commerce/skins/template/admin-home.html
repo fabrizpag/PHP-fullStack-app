@@ -1,0 +1,104 @@
+<html lang="zxx">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Template" />
+        <meta name="keywords" content="Ecommerce, unica, creative, html" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Ecommerce</title>
+    
+        <!-- Google Font -->
+        <link href="https://fonts.googleapis.com/css?family=Muli:300,400,500,600,700,800,900&amp;display=swap" rel="stylesheet" />
+    
+        <!-- Css Styles -->
+        <link rel="stylesheet" href="skins/template/css/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/font-awesome.min.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/themify-icons.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/elegant-icons.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/owl.carousel.min.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/nice-select.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/jquery-ui.min.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/slicknav.min.css" type="text/css" />
+        <link rel="stylesheet" href="skins/template/css/style.css" type="text/css" />
+    </head>
+    <body>
+        <nav  style="background-color:#3b3b3b;" class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div style="width:100%;" class="navbar-nav">
+                  <a style="font-size: 20px;padding-right:5%;" class="nav-link text-warning" href="admin.php">Magazzino</a>
+                  <a style="font-size: 20px;padding-right:5%;" class="nav-link text-warning"  id="AnchorAdminCat">Categorie</a>
+                  <a style="font-size: 20px;padding-right:5%;" class="nav-link text-warning"  id="AnchorAdminMar">Marche</a>
+                  <a style="font-size: 20px;padding-right:5%;" class="nav-link text-warning"  id="AnchorAdminPro">Promozioni</a>
+                  <a style="font-size: 20px;padding-right:5%;" class="nav-link text-warning"  id="AnchorAdminOrd">Assistenza</a>
+                  <a style="font-size: 20px;" class="nav-link text-warning ml-auto" href="logout.php">log out</a>
+                </div>
+              </div>
+            </div>
+          </nav>
+
+          <div id="adminSetCenter">
+            <[body]> 
+          </div>
+
+
+          
+    <script src="skins/template/js/jquery-3.3.1.min.js"></script>
+    <script src="skins/template/js/bootstrap.min.js"></script>
+    <script src="skins/template/js/jquery-ui.min.js"></script>
+    <script src="skins/template/js/jquery.countdown.min.js"></script>
+    <script src="skins/template/js/jquery.nice-select.min.js"></script>
+    <script src="skins/template/js/jquery.zoom.min.js"></script>
+    <script src="skins/template/js/jquery.dd.min.js"></script>
+    <script src="skins/template/js/jquery.slicknav.js"></script>
+    <script src="skins/template/js/owl.carousel.min.js"></script>
+    <script src="skins/template/js/main.js"></script>
+    <script src="skins/template/js/filtriAjax.js"></script> 
+    <script src="skins/template/js/changeAdminCenterAjax.js"></script>  
+
+    <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="./skins/template/js/filtriAjax.js"></script>
+    <script>
+      $(document).ready(function(){
+         $("#AnchorAdminCat").on('click',function(){
+          changeCenterToCategoria();
+         });
+      });
+      $(document).ready(function(){
+         $("#AnchorAdminMar").on('click',function(){
+          changeCenterToMarca()
+         });
+      });
+      $(document).ready(function(){
+         $("#AnchorAdminPro").on('click',function(){
+          changeCenterToPromozioni()
+         });
+      });
+      $(document).ready(function(){
+         $("#AnchorAdminOrd").on('click',function(){
+          changeCenterToAssistenza()
+         });
+      });
+      $(document).ready(function(){
+        var ch = $("#resetFilterID");
+        // Cambia l'attributo "href" del reset dei filtri
+        ch.attr("href", "admin.php");
+      })
+    </script>
+
+    </body>
+
+    <style>
+        .text-warning {
+          color: #e7ab3c;
+        }
+      
+        .nav-link:hover {
+          color: white; /* o il colore desiderato per l'hover */
+        }
+      </style>
+</html>

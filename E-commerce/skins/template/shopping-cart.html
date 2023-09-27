@@ -1,0 +1,84 @@
+<html lang="zxx">
+   <body>
+      <!-- Page Preloder -->
+      <div id="preloder" style="display: none">
+         <div class="loader" style="display: none"></div>
+      </div>
+
+      <!-- Shopping Cart Section Begin -->
+      <section class="shopping-cart spad">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <div class="cart-table">
+                     <table>
+                        <thead style="background-color: #ffb72987">
+                           <tr>
+                              <th>foto</th>
+                              <th>nome</th>
+                              <th>taglia</th>
+                              <th>prezzo</th>
+                              <th>Quantità</th>
+                              <th>Totale</th>
+                              <th><i class="ti-close"></i></th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           <[foreach]> <[elemento_carrello]> <[/foreach]>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="row">
+                     <div class="col-lg-4">
+                        <div class="cart-buttons">
+                           <a href="shop.php" class="primary-btn continue-shop">continua lo shopping</a>
+                        </div>
+                     </div>
+                     <div class="col-lg-4 offset-lg-4">
+                        <div class="proceed-checkout">
+                           <ul>
+                              <li class="cart-total">
+                                 Totale<span id="idtotshoppingcartitem" class="tot-price-cart"
+                                    ><[TOTALE_CARRELLO]> €</span
+                                 >
+                              </li>
+                           </ul>
+                           <button id="proceedCheckout" class="proceed-btn">vai al pagamento</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <!-- Shopping Cart Section End -->
+   </body>
+</html>
+
+<script>
+   function removeToCart(id_prodotto, taglia) {
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "include/php-utils/remove_to_cart.php", true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function () {
+         if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+            // Gestisci la risposta qui
+         }
+      };
+      xhr.send("id_prodotto=" + encodeURIComponent(id_prodotto) + "&taglia=" + encodeURIComponent(taglia));
+      window.location.href = window.location.href;
+   }
+   document.addEventListener("DOMContentLoaded", function () {
+      var totaleCarrello = parseFloat(document.getElementById("idtotshoppingcartitem").textContent);
+      var proceedCheckoutBtn = document.getElementById("proceedCheckout");
+
+      if (totaleCarrello === 0) {
+         proceedCheckoutBtn.disabled = true;
+      } else {
+         proceedCheckoutBtn.addEventListener("click", function () {
+            window.location.href = "checkout.php";
+         });
+      }
+   });
+</script>

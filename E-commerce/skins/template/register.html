@@ -1,0 +1,90 @@
+<html lang="zxx">
+   <body>
+      <!-- Page Preloder -->
+      <div id="preloder" style="display: none">
+         <div class="loader" style="display: none"></div>
+      </div>
+
+      <!-- Register Section Begin -->
+      <div class="register-login-section spad">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-6 offset-lg-3">
+                  <div class="register-form">
+                     <h2>Registrazione</h2>
+                     <form id="form_registrazione" action="register.php" method="post">
+                        <div class="group-input">
+                           <label for="username">Nome *</label>
+                           <input type="text" id="nome" name="nome" required />
+                        </div>
+
+                        <div class="group-input">
+                           <label for="username">Cognome *</label>
+                           <input type="text" id="cognome" name="cognome" required />
+                        </div>
+
+                        <div class="group-input">
+                           <label for="username">Indirizzo e-mail *</label>
+                           <div class="email-error"></div>
+                           <input type="text" id="email" name="email" required />
+                        </div>
+
+                        <div class="group-input">
+                           <label for="pass">Password *</label>
+                           <div class="password-error"></div>
+                           <input type="password" id="password" name="password" required />
+                        </div>
+
+                        <div class="group-input">
+                           <label for="con-pass">Conferma Password *</label>
+                           <input type="password" id="conferma_password" name="conferma_password" required />
+                        </div>
+
+                        <button id="conferma_registrazione" type="submit" class="site-btn register-btn" value="submit">
+                           registrati
+                        </button>
+                     </form>
+
+                     <div class="switch-login">
+                        <a href="login.php" class="or-login">vai a login</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Register Form Section End -->
+   </body>
+</html>
+
+<!-- script per far comparire le label di errore -->
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script>
+   $(document).ready(function () {
+      var err = '<div class="error"><p style="color: #f64e4e !important;">* Le password non corrispondono</p></div>';
+      var err2 = '<div class="error"><p style="color: #f64e4e !important;">* Inserisci una mail valida</p></div>';
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      $("#conferma_registrazione").on("click", function (event) {
+         event.preventDefault();
+
+         // controllo email
+         if (!emailPattern.test($("#email").val())) {
+            $(".email-error").html(err2);
+            return false;
+         } else {
+            $(".email-error").html("");
+         }
+
+         // controllo password
+         if ($("#password").val() !== $("#conferma_password").val()) {
+            $(".password-error").html(err);
+         } else {
+            $(".password-error").html("");
+            $("#form_registrazione").submit();
+         }
+      });
+   });
+</script>

@@ -1,0 +1,243 @@
+<html lang="it">
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder" style="display: none">
+        <div class="loader" style="display: none"></div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-8">
+                <div class="x100xauto banner_part rounded text-center padding_bottom_25 d-flex align-items-center justify-content-center">
+                    <div class="blog-detail-title">
+                        <h2 style="margin-top: 30px; margin-bottom: 30px">Ordine: #<[ID_ORDINE]></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4">
+
+
+                    <div style="border-color: black; padding: 5%;">
+                        <h5 class="card-title text-center">Informazioni utente</h5>
+                        <div class="order-detail-div">
+                            <b>Nome:</b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    <[NOME_UTENTE]> <[COGNOME_UTENTE]>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="order-detail-div">
+                            <b>Indirizzo: </b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    <[INDIRIZZO]> - <[CITTA]> (<[PROVINCIA]>)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div style="border-color: black; padding: 5%;">
+                        <h5 class="card-title text-center">Informazioni spedizione</h5>
+
+                        <div class="order-detail-div">
+                            <b>Codice ordine: </b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    #<[ID_ORDINE]>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="order-detail-div">
+                            <b>Stato:</b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    <[STATO_ORDINE]>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="order-detail-div">
+                            <b>Consegna prevista: </b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    <[DATA_CONSEGNA]>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="order-detail-div">
+                            <b>Costo totale: </b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    <[TOTALE_ORDINE]>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="order-detail-div">
+                            <b>Corriere: </b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    <[CORRIERE]>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="order-detail-div">
+                            <b>Metodo di pagamento: </b>
+                            <div class="order-detail-text-div">
+                                <span>
+                                    <[METODO_PAGAMENTO]>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-lg-8">
+                <div class="cart-table">
+                    <table>
+                        <thead style="background-color: #ffb72987;">
+                            <tr>
+                                <th>FOTO</th>
+                                <th>NOME</th>
+                                <th>PREZZO</th>
+                                <th>QUANTITA</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <[foreach]> <[ELEMENTO_ORDINE]> <[/foreach]>
+                        </tbody>
+                    </table>
+                </div>
+                <label class="visibility-feedback">Clicca su un elemento per lasciare un recensione</label>
+                <[LASCIA_RECENSIONE_AREA]>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    let idProdotto = 0;
+    let stelle = 0;
+
+    // seleziona prodotto
+    function SelectProduct(id_prodotto) {
+        idProdotto = id_prodotto;
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "include/php-utils/check_recensione_lasciata.php", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Gestisci la risposta qui
+                var response = xhr.responseText;
+                response = response.replace("<script> console.log('Connessione riuscita') <\\/script>", "");
+                var responseObject = JSON.parse(response);
+
+                if (responseObject.lasciata) {
+                    // imposto i valori della recensione lasciata dall'utente
+                    const valutazione = document.getElementById('star'+responseObject.valutazione);
+                    valutazione.checked = true;
+                    var textareaElement = document.getElementById("messaggioAss");
+                    textareaElement.value = responseObject.messaggio;
+                    disableContactForm();
+                } else {
+                    enableContactForm();
+                    // imposto i valori standard
+                    stelle = 1;
+                    const valutazione = document.getElementById('star1');
+                    valutazione.checked = true;
+                    var textareaElement = document.getElementById("messaggioAss");
+                    textareaElement.value = "";
+                }
+            }
+        };
+        xhr.send("id_prodotto=" + encodeURIComponent(id_prodotto));
+        updateContactFormVisibility();
+    }
+
+    // modulo recensione
+    function updateContactFormVisibility() {
+        var contactForm = document.querySelector(".contact-form");
+        var labelFeed = document.querySelector(".visibility-feedback");
+        if (idProdotto == 0) {
+        contactForm.style.display = "none"; // Nascondi il div
+        labelFeed.style.display = "block"; // Nascondi il div
+        } else {
+        contactForm.style.display = "block"; // Mostra il div
+        labelFeed.style.display = "none"; // Mostra il div
+        }
+    }
+    updateContactFormVisibility();
+
+    // seleziona stelle
+    const radioStelle = document.querySelectorAll('input[name="rate"]');
+    radioStelle.forEach(radio => {
+        radio.addEventListener('change', () => {
+            const valoreStella = radio.value;
+            stelle = valoreStella;
+        });
+    });
+
+    // invia feedback
+    function InviaFeedback() {
+        var textareaElement = document.getElementById("messaggioAss");
+        if (textareaElement.value) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "include/php-utils/invia_recensione.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Gestisci la risposta qui
+                    alert("Recensione inviata con successo!");
+                }
+            };
+            xhr.send("id_prodotto=" + encodeURIComponent(idProdotto) + 
+                    "&testo=" + encodeURIComponent(textareaElement.value) + 
+                    "&valutazione=" + encodeURIComponent(stelle));
+            window.location.href = window.location.href;
+
+
+
+
+
+
+
+
+            //
+        } else {
+            alert("Inserisci un testo nella recensione");
+        }
+    }
+
+    // disabilita il form recensione
+    function disableContactForm() {
+        var contactForm = document.querySelector(".contact-form");
+        contactForm.style.pointerEvents = "none"; // Disabilita gli eventi del mouse sul div
+        contactForm.style.opacity = "0.6"; // Opacità ridotta per indicare che il div è disabilitato
+    }
+
+    // Abilita il form recensione
+    function enableContactForm() {
+        var contactForm = document.querySelector(".contact-form");
+        contactForm.style.pointerEvents = "auto"; // Abilita gli eventi del mouse sul div
+        contactForm.style.opacity = "1"; // Ripristina l'opacità normale
+    }
+    
+
+
+</script>

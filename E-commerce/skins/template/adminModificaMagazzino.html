@@ -1,0 +1,186 @@
+<html lang="zxx">
+   <head>
+      <link rel="stylesheet" href="../skins/template/css/bootstrap.min.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/font-awesome.min.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/themify-icons.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/elegant-icons.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/owl.carousel.min.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/nice-select.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/jquery-ui.min.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/slicknav.min.css" type="text/css" />
+      <link rel="stylesheet" href="../skins/template/css/style.css" type="text/css" />
+      <meta charset="UTF-8" />
+      <meta name="description" content="Template" />
+      <meta name="keywords" content="Ecommerce, unica, creative, html" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <title>Ecommerce</title>
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-8" style="top: 50px">
+               <form action="adminModificaMagazzino.php" method="post">
+                  <div class="form-group">
+                     <label for="categoria">Categoria</label>
+                     <select class="form-control" name="formCategoria" value="a">
+                        <[select_categoria]>
+                     </select>
+                  </div>
+                  <div class="form-group">
+                     <label for="marca">Marca</label>
+                     <select class="form-control" name="formMarca" id="marca">
+                        <[select_marca]>
+                     </select>
+                  </div>
+                  <div class="form-group">
+                     <label for="nome">nome</label>
+                     <input
+                        value="<[nome_P]>"
+                        type="text"
+                        class="form-control"
+                        name="formNome"
+                        id="nome"
+                        maxlength="20"
+                     />
+                  </div>
+                  <div class="form-group">
+                     <label for="descrizione">descrizione</label>
+                     <input
+                        value="<[descrizione_P]>"
+                        type="text"
+                        class="form-control"
+                        name="formDescrizione"
+                        id="descrizione"
+                        maxlength="50"
+                     />
+                  </div>
+                  <div class="form-group">
+                     <label for="prezzo">prezzo</label>
+                     <input value="<[prezzo_P]>" type="number" class="form-control" name="formPrezzo" id="prezzo" />
+                  </div>
+                  <div class="form-group">
+                     <label for="genere">Genere</label>
+                     <select class="form-control" name="formGenere" id="genere">
+                        <[select_genere]>
+                     </select>
+                  </div>
+                  <input style="display: none" type="number" value="<[id_P]>" name="formId" />
+                  <div class="form-group">
+                     <label for="campo1">TAGLIA S</label>
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <button class="btn btn-outline-secondary" type="button" id="decrement1">-</button>
+                        </div>
+                        <input type="number" class="form-control" name="formTagliaS" id="campo1" value="<[value1]" />
+                        <div class="input-group-append">
+                           <button class="btn btn-outline-secondary" type="button" id="increment1">+</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="campo2">TAGLIA M</label>
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <button class="btn btn-outline-secondary" type="button" id="decrement2">-</button>
+                        </div>
+                        <input type="number" class="form-control" name="formTagliaM" id="campo2" value="<[value2]" />
+                        <div class="input-group-append">
+                           <button class="btn btn-outline-secondary" type="button" id="increment2">+</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="campo2">TAGLIA L</label>
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <button class="btn btn-outline-secondary" type="button" id="decrement3">-</button>
+                        </div>
+                        <input type="number" class="form-control" name="formTagliaL" id="campo3" value="<[value3]" />
+                        <div class="input-group-append">
+                           <button class="btn btn-outline-secondary" type="button" id="increment3">+</button>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label for="campo3">TAGLIA XL</label>
+                     <div class="input-group">
+                        <div class="input-group-prepend">
+                           <button class="btn btn-outline-secondary" type="button" id="decrement4">-</button>
+                        </div>
+                        <input type="number" class="form-control" name="formTagliaXL" id="campo4" value="<[value4]" />
+                        <div class="input-group-append">
+                           <button class="btn btn-outline-secondary" type="button" id="increment4">+</button>
+                        </div>
+                     </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Salva</button>
+                  <a class="btn btn-primary" href="adminImmaginiProdotto.php?<[querystringImg]>">Vedi Immagini</a>
+                  <a class="btn btn-primary" href="../admin.php">Indietro</a>
+               </form>
+            </div>
+            <div class="col-lg-4" style="top: 50px">
+               <img src="<[URL_IMMAGINE]>" alt="product_img" />
+            </div>
+         </div>
+      </div>
+   </body>
+
+   <script src="../skins/template/js/jquery-3.3.1.min.js"></script>
+   <script src="../skins/template/js/bootstrap.min.js"></script>
+   <script src="../skins/template/js/jquery-ui.min.js"></script>
+   <script src="../skins/template/js/jquery.countdown.min.js"></script>
+   <script src="../skins/template/js/jquery.nice-select.min.js"></script>
+   <script src="../skins/template/js/jquery.zoom.min.js"></script>
+   <script src="../skins/template/js/jquery.dd.min.js"></script>
+   <script src="../skins/template/js/jquery.slicknav.js"></script>
+   <script src="../skins/template/js/owl.carousel.min.js"></script>
+   <script src="../skins/template/js/main.js"></script>
+   <script src="../skins/template/js/filtriAjax.js"></script>
+   <script src="../skins/template/js/changeAdminCenterAjax.js"></script>
+
+   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script src="../skins/template/js/filtriAjax.js"></script>
+
+   <script>
+      $(document).ready(function () {
+         $("#increment1").on("click", function () {
+            $("#campo1").val(parseInt($("#campo1").val()) + 1);
+         });
+         $("#increment2").on("click", function () {
+            $("#campo2").val(parseInt($("#campo2").val()) + 1);
+         });
+         $("#increment3").on("click", function () {
+            $("#campo3").val(parseInt($("#campo3").val()) + 1);
+         });
+         $("#increment4").on("click", function () {
+            $("#campo4").val(parseInt($("#campo4").val()) + 1);
+         });
+         $("#decrement1").on("click", function () {
+            $("#campo1").val($("#campo1").val() - 1);
+            if (parseInt($("#campo1").val()) < 0) {
+               $("#campo1").val("0");
+            }
+         });
+         $("#decrement2").on("click", function () {
+            $("#campo2").val($("#campo2").val() - 1);
+            if (parseInt($("#campo2").val()) < 0) {
+               $("#campo2").val("0");
+            }
+         });
+         $("#decrement3").on("click", function () {
+            $("#campo3").val($("#campo3").val() - 1);
+            if (parseInt($("#campo3").val()) < 0) {
+               $("#campo3").val("0");
+            }
+         });
+         $("#decrement4").on("click", function () {
+            $("#campo4").val($("#campo4").val() - 1);
+            if (parseInt($("#campo4").val()) < 0) {
+               $("#campo4").val("0");
+            }
+         });
+      });
+   </script>
+</html>

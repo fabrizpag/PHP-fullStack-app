@@ -1,0 +1,133 @@
+<div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1 produts-sidebar-filter">
+   <div class="filter-widget">
+      <h4 class="fw-title">Genere</h4>
+      <div class="fw-brand-check">
+         <div class="bc-item">
+            <label>
+               Uomo
+               <input class="checkbox-genere" type="checkbox" value="uomo" />
+               <span class="checkmark"></span>
+            </label>
+         </div>
+         <div class="bc-item">
+            <label>
+               Donna
+               <input class="checkbox-genere" type="checkbox" value="donna" />
+               <span class="checkmark"></span>
+            </label>
+         </div>
+         <div class="bc-item">
+            <label>
+               Bambino
+               <input class="checkbox-genere" type="checkbox" value="bambino" />
+               <span class="checkmark"></span>
+            </label>
+         </div>
+      </div>
+   </div>
+
+   <div class="filter-widget">
+      <h4 class="fw-title">Categorie</h4>
+      <div class="fw-brand-check"><[foreach]> <[categorie]> <[/foreach]></div>
+   </div>
+
+   <!-- elenco delle marche -->
+   <div class="filter-widget">
+      <h4 class="fw-title">Brand</h4>
+      <div class="fw-brand-check"><[foreach]> <[marche]> <[/foreach]></div>
+   </div>
+
+   <!-- il prezzo non l'ho proprio toccato ancora -->
+   <div class="filter-widget">
+      <h4 class="fw-title">Prezzo</h4>
+      <div class="filter-range-wrap">
+         <div class="range-slider">
+            <div class="price-input">
+               <input type="text" id="minamount" />
+               <input type="text" id="maxamount" />
+            </div>
+         </div>
+         <div
+            class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+            data-min="5"
+            data-max="1000"
+         >
+            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 0%"></span>
+            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 100%"></span>
+            <div class="ui-slider-range ui-corner-all ui-widget-header" style="left: 0%; width: 100%"></div>
+         </div>
+      </div>
+
+      <button id="a-filter-items" class="filter-btn">Filter</button>
+      <a href="shop.php" class="btn" id="resetFilterID">RESET</a>
+      <!--<a href="shop.php" class="btn">RESET</a> -->
+   </div>
+
+   <!-- questo può anche rimanere cosi -->
+   <div class="filter-widget">
+      <br />
+      <h4 class="fw-title">Size</h4>
+      <div class="fw-size-choose">
+         <div class="sc-item">
+            <input class="radio-size" type="radio" id="s-size" value="S" name="radioSize" />
+            <label for="s-size">s</label>
+         </div>
+         <div class="sc-item">
+            <input class="radio-size" type="radio" id="m-size" value="M" name="radioSize" />
+            <label for="m-size">m</label>
+         </div>
+         <div class="sc-item">
+            <input class="radio-size" type="radio" id="l-size" value="L" name="radioSize" />
+            <label for="l-size">l</label>
+         </div>
+         <div class="sc-item">
+            <input class="radio-size" type="radio" id="xs-size" value="XL" name="radioSizea" />
+            <label for="xs-size">xl</label>
+         </div>
+      </div>
+   </div>
+
+   <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script src="./skins/template/js/filtriAjax.js"></script>
+   <script>
+      $(document).ready(function () {
+         $("#a-filter-items").on("click", function () {
+            var arrCategoria = [];
+            var arrGenere = [];
+            var arrMarca = [];
+            var arrPrezzo = [];
+            var size;
+            $(".checkbox-categoria").each(function () {
+               if ($(this).is(":checked")) {
+                  var valoreCheckbox = $(this).val();
+                  arrCategoria.push(valoreCheckbox);
+               }
+            });
+            $(".checkbox-genere").each(function () {
+               if ($(this).is(":checked")) {
+                  var valoreCheckbox = $(this).val();
+                  arrGenere.push(valoreCheckbox);
+               }
+            });
+            $(".checkbox-marca").each(function () {
+               if ($(this).is(":checked")) {
+                  var valoreCheckbox = $(this).val();
+                  arrMarca.push(valoreCheckbox);
+               }
+            });
+            $(".radio-size").each(function () {
+               if ($(this).is(":checked")) {
+                  size = $(this).val();
+               }
+            });
+            arrPrezzo.push($("#minamount").val());
+            arrPrezzo.push($("#maxamount").val());
+
+            inviaRichiestaFil(arrCategoria, arrGenere, arrMarca, arrPrezzo, size);
+            inviaRichiestaFilAdmint(arrCategoria, arrGenere, arrMarca, arrPrezzo, size);
+         });
+      });
+   </script>
+</div>

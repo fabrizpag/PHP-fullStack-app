@@ -1,0 +1,88 @@
+<tr>
+   <td class="cart-pic first-row">
+      <img src="<[URL_IMMAGINE]>" alt="product img" style="height: 140px" />
+   </td>
+   <td class="cart-title first-row">
+      <h5><[NOME_PRODOTTO]></h5>
+   </td>
+   <td class="p-price first-row"><[TAGLIA_PRODOTTO]></td>
+   <td class="p-price first-row"><[PREZZO_SINGOLO]> €</td>
+   <td class="qua-col first-row">
+      <div class="quantity">
+         <div class="pro-qty">
+            <span id="t<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>" class="dec qtybtn">-</span>
+            <input
+               id="qt<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>"
+               type="text"
+               value="<[QUANTITA]>"
+               max="<[Q_MAX]>"
+               disabled
+            />
+            <span id="a<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>" class="inc qtybtn">+</span>
+         </div>
+      </div>
+   </td>
+   <td id="totPrice<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>" class="total-price first-row">
+      <span class="tot-price-product"></span><[PREZZO_SINGOLO_TOT]>€
+   </td>
+   <td class="close-td first-row" onclick="removeToCart('<[ID_PRODOTTO]>', '<[TAGLIA_PRODOTTO]>')">
+      <i class="ti-close"></i>
+   </td>
+</tr>
+
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="./skins/template/js/aggiornaCarrelloAjax.js"></script>
+
+<script>
+   $(document).ready(function () {
+      let massimo = parseFloat("<[Q_MAX]>");
+      $("#a<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").on("click", function () {
+         let prezzoSingolo = parseFloat("<[PREZZO_SINGOLO]>");
+         let currQ = parseFloat($("#qt<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").val()) + 1;
+         let currTot = prezzoSingolo * currQ;
+         if (prezzoSingolo * massimo < currTot) {
+            //si è sforato il massimo
+         } else {
+            currTot = currTot.toFixed(2);
+            currTot = currTot.toString();
+            str1 = '<span class="tot-price-product"></span>';
+            str2 = "€</td>";
+            strtot = str1 + currTot + str2;
+            $("#totPrice<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").html(strtot);
+
+            let spanSTR = $("#idtotshoppingcartitem").html();
+            spanSTR = spanSTR.slice(0, spanSTR.length - 2);
+            //spanSTR = parseFloat(spanSTR)+parseFloat(currTot);
+            //parseFloat($("#qt<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").val())
+            spanSTR = parseFloat(spanSTR) + prezzoSingolo;
+            spanSTR = spanSTR.toFixed(2);
+            spanSTR = spanSTR.toString() + " €";
+            $("#idtotshoppingcartitem").html(spanSTR);
+            aggiornaDB("<[ID_PRODOTTO]>", currQ.toString(), "<[TAGLIA_PRODOTTO]>");
+         }
+      });
+      $("#t<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").on("click", function () {
+         let prezzoSingolo = parseFloat("<[PREZZO_SINGOLO]>");
+         if (parseFloat($("#qt<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").val()) === 1) {
+         } else {
+            let currQ = parseFloat($("#qt<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").val()) - 1;
+            let currTot = prezzoSingolo * currQ;
+            currTot = currTot.toFixed(2);
+            currTot = currTot.toString();
+            str1 = '<span class="tot-price-product"></span>';
+            str2 = "€</td>";
+            strtot = str1 + currTot + str2;
+            $("#totPrice<[ID_PRODOTTO]><[TAGLIA_PRODOTTO]>").html(strtot);
+
+            let spanSTR = $("#idtotshoppingcartitem").html();
+            spanSTR = spanSTR.slice(0, spanSTR.length - 2);
+            spanSTR = parseFloat(spanSTR) - prezzoSingolo;
+            spanSTR = spanSTR.toFixed(2);
+            spanSTR = spanSTR.toString() + " €";
+            $("#idtotshoppingcartitem").html(spanSTR);
+            aggiornaDB("<[ID_PRODOTTO]>", currQ.toString(), "<[TAGLIA_PRODOTTO]>");
+         }
+      });
+   });
+</script>

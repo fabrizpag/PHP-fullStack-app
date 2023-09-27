@@ -1,0 +1,23 @@
+<li class="cart-icon">
+   <a href="carrello.php">
+      <i class="icon_bag_alt"></i>
+      <span> <[oggetti_carrello]> </span>
+   </a>
+   <div class="cart-hover">
+      <div class="select-items">
+         <table>
+            <tbody>
+               <[foreach]><[lista_prodotti]><[/foreach]>
+            </tbody>
+         </table>
+      </div>
+      <div class="select-total">
+         <span>totale:</span>
+         <h5><[TOTALE_CART]>€</h5>
+      </div>
+      <div class="select-button">
+         <a href="carrello.php" class="primary-btn view-card">vedi il carrello</a>
+         <a href="checkout.php" class="primary-btn checkout-btn">CHECK OUT</a>
+      </div>
+   </div>
+</li>
